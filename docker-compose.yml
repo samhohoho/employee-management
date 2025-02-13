@@ -1,0 +1,11 @@
+name: employee-management
+
+services:
+  postgres:
+    image: postgres:latest
+    volumes:
+      - ./postgres_init.sql:/docker-entrypoint-initdb.d/postgres_init.sql
+    environment:
+      - POSTGRES_PASSWORD
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
