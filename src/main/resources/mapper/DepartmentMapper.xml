@@ -21,6 +21,14 @@
         Department
     </sql>
 
+    <select id="existById" resultType="boolean">
+        SELECT EXISTS (
+            SELECT 1 
+            FROM <include refid="tb"/> 
+            WHERE id = #{id}
+        )
+    </select>
+
     <insert id="insertOne" parameterType="com.employee.employee_management.dto.department.DepartmentPostDto" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO <include refid="tb" /> (
             name

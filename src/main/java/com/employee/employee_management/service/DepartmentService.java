@@ -34,4 +34,8 @@ public class DepartmentService {
     public void deleteOne(Long id) {
         departmentDao.deleteOne(id);
     }
+
+    public boolean existById(Long id) {
+        return departmentDao.existById(id);
+    }
 }
