@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.employee.employee_management.dao.EmployeeDao">
+    <sql id="tb">
+        Employee
+    </sql>
+
+    <resultMap id="findOneMap" type="com.employee.employee_management.dto.department.DepartmentGetDto">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="department_id" property="departmentId"/>
+    </resultMap>
+
+    <insert id="insertOne" parameterType="com.employee.employee_management.dto.employee.EmployeePostDto" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO <include refid="tb" /> (
+        name,
+        department_id
+        ) VALUES (
+        #{name},
+        #{departmentId}
+        )
+    </insert>
+
+    <update id="updateOne" parameterType="com.employee.employee_management.dto.employee.EmployeePostDto">
+        UPDATE <include refid="tb"/>
+        <set>
+            <if test="name != null">name = #{name}</if>
+            <if test="departmentId != null">department_id = #{departmentId}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="findOne" parameterType="java.lang.Long" resultMap="findOneMap">
+        SELECT
+            e.id,
+            e.name,
+            e.department_id
+        FROM <include refid="tb"/> e
+        <where>
+            e.id = #{id}
+        </where>
+    </select>
+
+    <delete id="deleteOne" parameterType="java.lang.Long">
+        DELETE
+        FROM <include refid="tb"/> d
+        <where>
+            e.id = #{id}
+        </where>
+    </delete>
+</mapper>
