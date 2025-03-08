@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.employee.employee_management.dao.TaskDao">
+    <resultMap id="findMap" type="com.employee.employee_management.dto.task.TaskGetDto">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="description" property="description"/>
+        <result column="completed" property="completed"/>
+    </resultMap>
+
+    <sql id="tb">
+        Task
+    </sql>
+
+    <insert id="insertOne" parameterType="com.employee.employee_management.dto.task.TaskPostDto" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO <include refid="tb" /> (
+            title,
+            description,
+            completed
+        ) VALUES (
+            #{title},
+            #{description},
+            #{completed}
+        )
+    </insert>
+
+    <update id="updateOne" parameterType="com.employee.employee_management.model.Task">
+        UPDATE <include refid="tb"/>
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="completed != null">completed = #{completed},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="find" parameterType="java.lang.Long" resultMap="findMap">
+        SELECT
+            t.id,
+            t.title,
+            t.description,
+            t.completed
+        FROM <include refid="tb"/> t
+    </select>
+
+    <delete id="deleteOne" parameterType="java.lang.Long">
+        DELETE FROM <include refid="tb"/>
+        <where>
+            id = #{id}
+        </where>
+    </delete>
+</mapper>
