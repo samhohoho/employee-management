@@ -11,6 +11,6 @@ import com.employee.employee_management.model.Task;
 public interface TaskDao {
     void insertOne(Task task);
     void updateOne(Task task);
-    List<TaskGetDto> find();
+    List<TaskGetDto> findManyTasks();
     void deleteOne(Long id);
 }

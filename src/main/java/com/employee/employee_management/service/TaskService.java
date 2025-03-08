@@ -30,7 +30,7 @@ public class TaskService {
     }
 
     public List<TaskGetDto> find() {
-        return taskDao.find();
+        return taskDao.findManyTasks();
     }
 
     public void deleteOne(Long id) {
